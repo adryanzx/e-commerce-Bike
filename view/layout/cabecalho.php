@@ -31,7 +31,7 @@
     <header class="cabeça">
         <nav>
             <div class="logo">
-                <a href="home.php">
+                <a href="inicio.php">
                     <img src="../imagens/logo.png" class="logo-img transition-soft">
                 </a>
             </div>
