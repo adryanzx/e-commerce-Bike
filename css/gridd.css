@@ -1,0 +1,50 @@
+.product-card {
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Borda mais clara */
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+  background-color: rgba(30, 30, 30, 0.9); /* Fundo do cartão escuro */
+  color: #fff; /* Texto em branco */
+}
+
+.product-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.product-name {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff; /* Nome do produto em branco */
+}
+
+.product-description {
+  font-size: 18px;
+  color: #ccc; /* Texto da descrição em cinza claro */
+  margin-bottom: 15px;
+}
+
+.product-price {
+  font-size: 20px;
+  font-weight: bold;
+  color: #00aaff; /* Cor do preço em azul claro */
+  margin-bottom: 20px;
+}
+
+.btn-add-to-cart {
+  width: 100%;
+  background-color: rgba(62, 72, 65, 0.9); /* Fundo escuro para o botão */
+  color: #fff; /* Texto em branco */
+  border: none; /* Remover borda padrão */
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 150ms ease-in-out;
+}
+
+.btn-add-to-cart:hover {
+  background-color: #007bff; /* Fundo azul ao passar o mouse */
+}

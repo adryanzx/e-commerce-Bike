@@ -1,0 +1,38 @@
+/* Estilo do modal para o modo dark */
+.modal {
+    display: none; /* Ocultar por padrão */
+    position: fixed; /* Posição fixa */
+    z-index: 1; /* Coloque o modal acima do conteúdo */
+    left: 0;
+    top: 0;
+    width: 100%; /* Largura total */
+    height: 100%; /* Altura total */
+    overflow: auto; /* Habilitar rolagem */
+    background-color: rgba(255, 255, 255, 0.8); /* Fundo mais escuro */
+}
+
+.modal-content {
+    background-color: #ffffff; /* Fundo escuro do conteúdo */
+    color: #e0e0e0; /* Texto claro */
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #444; /* Borda mais escura */
+    width: 80%;
+    max-width: 600px; /* Largura máxima do modal */
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); /* Sombra */
+}
+
+.close {
+    color: #e0e0e0; /* Cor do botão de fechar */
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #ff0000; /* Muda para vermelho ao passar o mouse */
+    text-decoration: none;
+    cursor: pointer;
+}

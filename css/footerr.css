@@ -1,0 +1,41 @@
+footer {
+  background-color: rgba(30, 30, 30, 0.9); /* Fundo escuro */
+  color: #f1f1f1; /* Texto claro */
+  text-align: center;
+  padding: 10px;
+  margin-top: 6rem;
+  font-family: poppins;
+  font-weight: normal;
+  width: 100%;
+}
+
+footer img {
+  width: auto;
+  height: 20vh;
+  margin: 1rem;
+  filter: brightness(0.8); /* Ajusta o brilho da imagem para harmonizar com o fundo escuro */
+}
+
+footer .myInfo {
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+}
+
+footer .myInfo .redes a {
+  margin: 0.5rem;
+  color: #f1f1f1; /* Links claros */
+  transition: color 0.3s;
+}
+
+footer .myInfo .redes a:hover {
+  color: #bbb; /* Cor mais clara no hover */
+}
+
+footer .myInfo .redes p {
+  font-size: 1rem;
+  color: #ccc; /* Texto das redes sociais em tom mais claro */
+}
