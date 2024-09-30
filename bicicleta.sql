@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 28/09/2024 às 22:45
+-- Tempo de geração: 30/09/2024 às 02:40
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.0.30
 
@@ -56,12 +56,16 @@ CREATE TABLE `cliente` (
   `cod` int(11) NOT NULL,
   `cpf` varchar(15) NOT NULL,
   `nome` varchar(40) NOT NULL,
-  `sobrenome` varchar(60) NOT NULL,
-  `dataNascimento` date NOT NULL,
-  `telefone` varchar(15) NOT NULL,
   `email` varchar(50) NOT NULL,
   `senha` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `cliente`
+--
+
+INSERT INTO `cliente` (`cod`, `cpf`, `nome`, `email`, `senha`) VALUES
+(79, '123456789', 'Joao Pedro Bagli Silva', 'joaobagli.pedro1506@gmail.com', '123456');
 
 -- --------------------------------------------------------
 
@@ -257,7 +261,7 @@ ALTER TABLE `carrinho`
 -- AUTO_INCREMENT de tabela `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `cod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
+  MODIFY `cod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- AUTO_INCREMENT de tabela `endereco`

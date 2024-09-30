@@ -21,10 +21,7 @@ if(isset($_POST['inputEmailLog'])
 
 //Cadastro de Cliente
 if(isset($_POST['inputNome']) &&
-   isset($_POST['inputSobrenome']) && 
    isset($_POST['inputCPF']) && 
-   isset($_POST['inputDataNasc']) && 
-   isset($_POST['inputTelefone']) && 
    isset($_POST['inputEmail']) &&
    isset($_POST['inputSenha'])
    
@@ -32,14 +29,11 @@ if(isset($_POST['inputNome']) &&
 {   
     $cod = "";
     $nome = $_POST['inputNome'];
-    $sobrenome = $_POST['inputSobrenome'];
     $cpf = $_POST['inputCPF'];
-    $dataNasc = $_POST['inputDataNasc'];
-    $telefone = $_POST['inputTelefone'];
     $email = $_POST['inputEmail'];
     $senha = $_POST['inputSenha'];
     
-    $controlador->cadastrarCliente($cod,$nome, $sobrenome, $cpf, $dataNasc, $telefone, $email, $senha);
+    $controlador->cadastrarCliente($cod,$nome,$cpf, $email, $senha);
 
     header('Location:../view/login.php');
     die();

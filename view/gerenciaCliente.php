@@ -14,22 +14,9 @@ include "layout/cabecalho.php";
                     <input id="inputNome" type="text" class="form-control mb-3" placeholder="Nome" name="inputNome"
                         required>
 
-                    <label for="inputSobrenome">Sobrenome</label>
-                    <input id="inputSobrenome" type="text" class="form-control mb-3" placeholder="Sobrenome"
-                        name="inputSobrenome" required>
-
                     <label for="inputCPF">CPF</label>
                     <input id="inputCPF" type="text" class="form-control mb-3" placeholder="CPF" name="inputCPF"
                         maxlength="11" required>
-
-                    <label for="inputDataNasc">Data de nascimento</label>
-                    <input id="inputDataNasc" type="date" class="form-control mb-3" placeholder="Data de nascimento"
-                        name="inputDataNasc" required>
-
-                    <label for="inputTelefone">Telefone</label>
-                    <input id="inputTelefone" type="tel" class="form-control mb-3"
-                        pattern="\(?[0-9]{2}\)?\s?[0-9]{4,5}-?[0-9]{4}" placeholder="Telefone" name="inputTelefone"
-                        required>
 
                     <label for="inputEmail">Email</label>
                     <input id="inputEmail" type="email" class="form-control mb-3" placeholder="Email" name="inputEmail"
@@ -70,9 +57,7 @@ include "layout/cabecalho.php";
                     <th>Cod</th>
                     <th>CPF</th>
                     <th>Nome</th>
-                    <th>Sobrenome</th>
                     <th>Email</th>
-                    <th>Telefone</th>
 
                     <th></th>
                 </tr>

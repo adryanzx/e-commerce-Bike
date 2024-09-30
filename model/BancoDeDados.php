@@ -79,8 +79,6 @@ public function inserirCarrinho($carrinho) {
 public function inserirProduto($produto) {
     $conexao = $this->conectarBD();
 
-    //INSERT INTO `produto`(`nome`, `fabricante`, `descricao`, `valor`, `cod`, `imagem_path`, `sexo`, `tipo`, `tamanho`, `material`)
-    // Inserção na tabela produto
     $consulProd = "INSERT INTO produto (nome, fabricante, descricao, valor, imagem_path, sexo, tipo, tamanho, material) 
                    VALUES (
                     '{$produto->get_Nome()}', 
@@ -134,8 +132,8 @@ public function inserirProduto($produto) {
     public function inserirCliente($cliente){
         
         $conexao = $this->conectarBD();
-        $consulta = "INSERT INTO cliente (nome, sobrenome, cpf, dataNascimento, telefone, email, senha) 
-                     VALUES ('{$cliente->get_nome()}','{$cliente->get_sobrenome()}', '{$cliente->get_cpf()}','{$cliente->get_datanasc()}','{$cliente->get_telefone()}','{$cliente->get_email()}','{$cliente->get_senha()}')";
+        $consulta = "INSERT INTO cliente (nome, cpf, email, senha) 
+                     VALUES ('{$cliente->get_nome()}', '{$cliente->get_cpf()}','{$cliente->get_email()}','{$cliente->get_senha()}')";
         mysqli_query($conexao,$consulta);
     }
 
@@ -144,9 +142,6 @@ public function inserirProduto($produto) {
 
         $consulta = "UPDATE cliente SET 
                         nome = '{$cliente->get_nome()}',
-                        sobrenome = '{$cliente->get_sobrenome()}',
-                        dataNascimento = '{$cliente->get_datanasc()}',
-                        telefone = '{$cliente->get_telefone()}',
                         email = '{$cliente->get_email()}',
                         senha = '{$cliente->get_senha()}'
                     WHERE cod = '{$cliente->get_cod()}'";
@@ -379,8 +374,7 @@ public function inserirProduto($produto) {
                 v.cod AS venda_cod, 
                 v.valor_total, 
                 v.data_venda, 
-                c.nome AS cliente_nome, 
-                c.sobrenome AS cliente_sobrenome, 
+                c.nome AS cliente_nome,  
                 e.rua, 
                 e.numero, 
                 e.bairro, 

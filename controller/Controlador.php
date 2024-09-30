@@ -178,13 +178,13 @@ class Controlador{
     
     
 
-    public function cadastrarCliente($cod, $nome, $sobrenome, $cpf, $dataNasc, $telefone, $email, $senha){
-        $cliente  = new Cliente($cod, $nome, $sobrenome, $cpf, $dataNasc, $telefone, $email, $senha);
+    public function cadastrarCliente($cod, $nome, $cpf, $email, $senha){
+        $cliente  = new Cliente($cod, $nome, $cpf, $email, $senha);
         $this->bancoDeDados->inserirCliente($cliente);
     }
 
-    public function alterarCliente($cod, $nome, $sobrenome, $cpf, $dataNasc, $telefone, $email, $senha){
-        $cliente  = new Cliente($cod, $nome, $sobrenome, $cpf, $dataNasc, $telefone, $email, $senha);
+    public function alterarCliente($cod, $nome, $cpf,  $email, $senha){
+        $cliente  = new Cliente($cod, $nome, $cpf, $email, $senha);
         $this->bancoDeDados->alterarCliente($cliente);
     }
 
@@ -311,9 +311,8 @@ class Controlador{
                     "<td>". $cliente["cod"] ."</td>".
                     "<td>". $cliente["cpf"] ."</td>".
                     "<td>".$cliente['nome']."</td>".
-                    "<td>".$cliente['sobrenome']."</td>".
                     "<td>".$cliente['email']."</td>".
-                    "<td>".$cliente['telefone']."</td>".
+
 
 
                     "<td>".
@@ -354,21 +353,8 @@ class Controlador{
             "</div>" .
 
             "<div class='form-group'>" .
-                "<input id='input-log' type='text' class='form-control mb-4' Value='".$cliente['sobrenome']."' placeholder='Sobrenome' name='inputSobrenome' required>".
-            "</div>" .
-
-            "<div class='form-group'>" .
             "<input id='input-log' type='text' class='form-control mb-4' Value='".$cliente['cpf']."'placeholder='CPF' name='inputCPF' maxlength='11' required>" .
             "</div>" .
-
-            "<div class='form-group'>" .
-            "<input id='input-log' type='date' class='form-control mb-4' Value='".$cliente['dataNascimento']."' placeholder='Data de nascimento' name='inputDataNasc' required>" .
-            "</div>".
-
-            "<div class='form-group'>".
-                "<input id='input-log' type='tel' class='form-control telefone mb-4' Value='".$cliente['telefone']."' pattern='\(?[0-9]{2}\)?\s?[0-9]{4,5}-?[0-9]{4}' placeholder='Telefone' name='inputTelefone' required>" .
-            "</div>".
-
             "<div class='form-group'>".
                 "<input id='input-log' type='email' class='form-control mb-4'  Value='".$cliente['email']."' placeholder='Email' name='inputEmail' required>" .
             "</div>".
@@ -425,7 +411,7 @@ class Controlador{
             $relatorio .=
                 "<tr>".
                     "<td>". $venda["venda_cod"] ."</td>".
-                    "<td>". $venda["cliente_nome"] . " " . $venda["cliente_sobrenome"] ."</td>".
+                    "<td>". $venda["cliente_nome"] . "</td>".
                     "<td>R$ ". number_format($venda["valor_total"], 2, ',', '.') ."</td>".
                     "<td>". $dataVenda ."</td>".
                     "<td>". $venda["rua"] . ", " . $venda["numero"] . ", " . $venda["bairro"] . ", " . $venda["cep"] ."</td>".

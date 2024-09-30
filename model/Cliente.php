@@ -4,22 +4,15 @@ class Cliente{
 
     protected $cod;
     protected $nome;
-    protected $sobrenome;
     protected $cpf;
-    protected $datanasc;
-
-    protected $telefone;
     protected $email;
     protected $senha;
 
-    public function __construct($cod, $nome, $sobrenome, $Cpf, $datanasc, $telefone, $email, $senha)
+    public function __construct($cod, $nome,$Cpf,  $email, $senha)
     {
         $this->cod = $cod;
         $this->nome = $nome;
-        $this->sobrenome = $sobrenome;
         $this->cpf = $Cpf;
-        $this->datanasc = $datanasc;
-        $this->telefone = $telefone;
         $this->email = $email;
         $this->senha = $senha;
     }
@@ -38,18 +31,7 @@ class Cliente{
         $this->nome = $nome;
     }
 
-    
 
-    public function get_sobrenome(){
-        return($this->sobrenome);
-    } 
-
-    public function set_sobrenome($sobrenome){
-        $this->sobrenome = $sobrenome;
-    }
-
-
-   
 
     public function get_cpf(){
         return($this->cpf);
@@ -60,23 +42,6 @@ class Cliente{
         $this->cpf = $Cpf;
     }
 
-
-    public function get_datanasc(){
-        return($this->datanasc);
-    } 
-
-
-    public function set_datanasc($datanasc){
-        $this->datanasc = $datanasc;
-    }
-    
-    public function get_telefone(){
-        return($this->telefone);
-    }
-
-    public function set_telefone($telefone){
-        $this->telefone = $telefone;
-    }
 
 
     public function get_email(){
