@@ -43,8 +43,8 @@
 
             <ul class="nav-list">
                 <li><a href="home.php">Início</a></li>
-                <li><a href="cadastroProduto.php">Gerenciamento de Produtos</a></li>
-                <li><a href="gerenciaCliente.php">Gerenciamento de Clientes</a></li>
+                <li><a href="cadastroProduto.php">Ver Produtos</a></li>
+                <li><a href="gerenciaCliente.php">Ver Clientes</a></li>
                 <li><a href="../processamento/sair.php">Sair</a></li>
             </ul>
         </nav>

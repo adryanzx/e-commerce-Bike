@@ -12,23 +12,18 @@ require_once("../model/SessionManager.php");
 
 class Controlador{
 
-    //Atributo
     private $bancoDeDados;
 
-    //metodo singleton
     function __construct(){
-        // Obter a instância única do BancoDeDados
+
         $this->bancoDeDados = BancoDeDados::getInstance();
     }
 
     public function verificaLogin($email, $senha) {
         $usuarioLogado = $this->bancoDeDados->verificaLoginBD($email, $senha);
-        
-        // Destruir a sessão anterior, se houver
         SessionManager::destroySession();
     
         if (!empty($usuarioLogado[0])) {
-            // Corrigido o uso do set
             SessionManager::set("cod", $usuarioLogado[0]['cod']);
             SessionManager::set("nome", $usuarioLogado[0]['nome']);
     
@@ -58,8 +53,6 @@ class Controlador{
         } else {
             $codEndereco = 0;
         }
-
-
         $listaProdutosCarrinho = $this->bancoDeDados->retornarProdutosCarrinho($usuarioLogado);
         while($produto = mysqli_fetch_assoc($listaProdutosCarrinho)){
             $prod .=
@@ -73,12 +66,11 @@ class Controlador{
                 "</div>" .
             "</div>" .
             "<div class='pl-md-0 pl-1'><b>R$ ". $produto["valor_produto"] ."</b></div>" .
-            //botoes de quantidade abaixo
+          
             
-                //"<form action='' method=''>".
                     "<input type='hidden' name='cod' value='". $produto["codigo_carrinho"] ."' readonly>".
                     "<button type='submit' class='btn btn-secondary increase' data-target='quantity".$produto["codigo_carrinho"]."' data-add='add".$produto["codigo_carrinho"]."' type='button'> <i class='fa fa-plus' aria-hidden='true'></i> </button>" .
-                //"</form>".
+              
 
                 "<input type='text' class='px-md-3 px-1' 
                 id='add".$produto["codigo_carrinho"]."'
@@ -87,10 +79,10 @@ class Controlador{
                 size='1'
                 ></input>" .
 
-                //"<form action='' method=''>".
+           
                     "<input type='hidden' name='cod' value='". $produto["codigo_carrinho"] ."' readonly>".
                     "<button  type='submit' class='btn btn-secondary decrease' data-target='quantity".$produto["codigo_carrinho"]."' data-add='add".$produto["codigo_carrinho"]."'><i class='fa fa-minus' aria-hidden='true'></i></button>" .
-                //"</form>".
+               
 
 
             "<input class='pl-md-0 pl-1' 
@@ -107,22 +99,21 @@ class Controlador{
         "</div>" .
    " </div>" .
 
-   //teste modal
+  
    "<div id='myModal' class='modal' >" .
    "<div class='modal-content'>" .
    "<span class='close'>"."&times;"."</span>".
     "<section class='conteudo-formulario-cadastro'>" .
         "<form action='../processamento/processamentoAddEndereco.php' method='POST' enctype='multipart/form-data'>" .
         
-        //inputs para venda
+    
 
 
 
         "<section class='form-endereco'>" .
             "<label>Dados do endereço para entrega</label>" .
-            //codigo de usuario
+           
             "<input type='hidden' class='form-control' name='inputUsuarioLogado' value='".$usuarioLogado."'></input>" .
-            //codigo do endereco
             "<input type='hidden' id='codEndereco' class='form-control' name='inputEndereco' value='". $codEndereco."'></input>" .
 
 
@@ -161,7 +152,6 @@ class Controlador{
         }
         return $prod;
     }
-
     public function excluirCarrinho($cod){
         $this->bancoDeDados->excluirCarrinho($cod);
     }
@@ -175,9 +165,6 @@ class Controlador{
             $this->bancoDeDados->inserirProduto($produto);
         }
     }
-    
-    
-
     public function cadastrarCliente($cod, $nome, $cpf, $email, $senha){
         $cliente  = new Cliente($cod, $nome, $cpf, $email, $senha);
         $this->bancoDeDados->inserirCliente($cliente);
