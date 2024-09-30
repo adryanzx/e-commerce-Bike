@@ -8,9 +8,10 @@
     <title>BikeScriptzx - Admin</title>
 
     <link rel="stylesheet" type="text/css" href="../css/style.css">
-    <link rel="stylesheet" href="../css/indexAdmm.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <!-- <link rel="stylesheet" href="../css/indexAdmm.css">
     <link rel="stylesheet" href="../css/footerr.css">
-    <link rel="stylesheet" href="../css/formm.css">
+    <link rel="stylesheet" href="../css/formm.css"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
@@ -28,7 +29,7 @@
 
 <body>
 
-    <header class="cabeça">
+    <!-- <header class="cabeça">
         <nav>
             <div class="logo">
                 <a href="inicio.php">
@@ -41,11 +42,39 @@
                 <div class="line3"></div>
             </div>
 
-            <ul class="nav-list">
+          
+            </ul> -->
+   
+    <!-- <header class="header-bg">
+    <div class="header container">
+      <a href="inicio.php">
+        <img src="../imagens/logo.png" alt="Logo" class="logo">
+      </a>      
+      <nav aria-label="primaria">
+      <ul class="nav-list">
                 <li><a href="home.php">Início</a></li>
                 <li><a href="cadastroProduto.php">Ver Produtos</a></li>
                 <li><a href="gerenciaCliente.php">Ver Clientes</a></li>
                 <li><a href="../processamento/sair.php">Sair</a></li>
-            </ul>
-        </nav>
-    </header>
+</ul>
+      </nav>
+    </div>
+  </header> -->
+
+  <header class="header-bg">
+    <div class="header container">
+      <a href="inicio.php">
+        <img src="../imagens/logo.png" alt="Logo" class="logo">
+      </a>      
+      <nav aria-label="primaria">
+        <ul class="header-menu font-1-m cor-0"> 
+        <li><a href="home.php">Início</a></li>
+        <li><a href="cadastroProduto.php">Ver Produtos</a></li>
+        <li><a href="gerenciaCliente.php">Ver Clientes</a></li>
+        <li><a href="../processamento/sair.php">Sair</a></li>
+                   
+        </ul>
+      </nav>
+    </div>
+  </header>
+    

@@ -8,10 +8,11 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="../css/style.css">
     <title>BikeScriptzx - Cliente</title>
-    <link rel="stylesheet" href="../css/indexx.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <!-- <link rel="stylesheet" href="../css/indexx.css">
     <link rel="stylesheet" href="../css/footerr.css">
     <link rel="stylesheet" href="../css/formm.css">
-    <link rel="stylesheet" href="../css/gridd.css">
+    <link rel="stylesheet" href="../css/gridd.css"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
@@ -67,22 +68,15 @@
     ?>
 
 
-    <header class="cabeça">
-        <nav>
-            <div class="logo">
-                <a href="home.php">
-                    <img src="../imagens/logo.png" class="logo-img transition-soft">
-                </a>
-            </div>
-            <div class="mobile-menu">
-                <div class="line1"></div>
-                <div class="line2"></div>
-                <div class="line3"></div>
-            </div>
-
-            <ul class="nav-list">
-                <li><a href="clienteVerProduto.php">Produtos</a></li>
-                <li>
+<header class="header-bg">
+    <div class="header container">
+      <a href="inicio.php">
+        <img src="../imagens/logo.png" alt="Logo" class="logo">
+      </a>      
+      <nav aria-label="primaria">
+        <ul class="header-menu font-1-m cor-0"> 
+          <li><a href="clienteVerProduto.php">Nossos Produtos</a></li>
+          <li>
                     <a href="clienteCarrinho.php">
                         <i class="fa fa-shopping-cart"></i>
                         <span class="cart-badge">0</span> <!-- Círculo com o número -->
@@ -90,7 +84,8 @@
                 </li>
                 <li><a href="clienteGerenciaUsuario.php"><i class="fa fa-user"></i></a></li>
                 <li><a href="../processamento/sair.php">Sair</a></li>
-            </ul>
-        </nav>
-    </header>
+        </ul>
+      </nav>
+    </div>
+  </header>
     
