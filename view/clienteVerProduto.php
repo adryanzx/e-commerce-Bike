@@ -17,7 +17,7 @@
 </div>
 <?php
     // Removendo a sessão com SessionManager
-    SessionManager::remove("venda_efetuada");
+    unset($_SESSION['venda_efetuada']);
 }
 ?>
 
