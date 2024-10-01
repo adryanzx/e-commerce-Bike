@@ -52,7 +52,7 @@
       </a>      
       <nav aria-label="primaria">
       <ul class="nav-list">
-                <li><a href="home.php">Início</a></li>
+                <li><a href="home.php">Ver Relatorios</a></li>
                 <li><a href="cadastroProduto.php">Ver Produtos</a></li>
                 <li><a href="gerenciaCliente.php">Ver Clientes</a></li>
                 <li><a href="../processamento/sair.php">Sair</a></li>
@@ -68,7 +68,7 @@
       </a>      
       <nav aria-label="primaria">
         <ul class="header-menu font-1-m cor-0"> 
-        <li><a href="home.php">Início</a></li>
+        <li><a href="home.php">Ver Relatorios</a></li>
         <li><a href="cadastroProduto.php">Ver Produtos</a></li>
         <li><a href="gerenciaCliente.php">Ver Clientes</a></li>
         <li><a href="../processamento/sair.php">Sair</a></li>

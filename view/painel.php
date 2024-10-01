@@ -17,7 +17,7 @@
             <div class="col-md-2 sidebar">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link btn btn-dark mb-2" href="home.php">Início</a>
+                        <a class="nav-link btn btn-dark mb-2" href="home.php">Ver Relatorio</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link btn btn-dark mb-2" href="gerenciaCliente.php">Cadastrar usuários</a>
