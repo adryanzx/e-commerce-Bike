@@ -27,13 +27,19 @@ class Controlador{
             SessionManager::set("cod", $usuarioLogado[0]['cod']);
             SessionManager::set("nome", $usuarioLogado[0]['nome']);
     
-            if ($usuarioLogado[1] == "cliente") {
-                header('Location:../view/clienteVerProduto.php');
+            // Verifica se o e-mail contém o domínio @admin
+            if (strpos($email, '@admin') !== false) {
+                // Usuário administrador
+                SessionManager::set("usuario_tipo", "admin");
+                header('Location:../view/painel.php'); // Redireciona para o painel do administrador
             } else {
-                header('Location:../view/home.php');
+                // Usuário cliente
+                SessionManager::set("usuario_tipo", "cliente");
+                header('Location:../view/inicio.php'); // Redireciona para a página inicial do cliente
             }
+            exit; // Para garantir que nenhum código adicional seja executado após o redirecionamento
         } else {
-            echo "tratamento de erros";
+            echo "E-mail ou senha incorretos.";
         }
     }
     

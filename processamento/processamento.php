@@ -2,48 +2,59 @@
 
 session_start();
 require_once("../controller/Controlador.php");
-require_once ("../model/FactoryProduto.php");
+require_once("../model/FactoryProduto.php");
 
 $controlador = new Controlador();
 
-//Login
-if(isset($_POST['inputEmailLog']) 
-&& isset($_POST['inputSenhaLog'])){
+// Verificação de Login
+if (isset($_POST['inputEmailLog']) && isset($_POST['inputSenhaLog'])) {
 
-    //$_SESSION['estaLogado'] = TRUE;
     $email = $_POST['inputEmailLog'];
     $senha = $_POST['inputSenhaLog'];
 
-    $controlador->verificaLogin($email, $senha);
+    // Chama a função que verifica o login no controlador
+    if ($controlador->verificaLogin($email, $senha)) {
+
+        // Verifica se o e-mail contém o domínio @admin
+        if (strpos($email, '@admin') !== false) {
+            // Usuário administrador
+            $_SESSION['usuario_tipo'] = 'admin';
+            header('Location: ../view/painel.php'); // Redireciona para o painel do administrador
+        } else {
+            // Usuário cliente
+            $_SESSION['usuario_tipo'] = 'cliente';
+            header('Location: ../view/inicio.php'); // Redireciona para a página inicial do cliente
+        }
+
+    } else {
+        // Caso o login falhe (e-mail ou senha incorretos)
+        echo "E-mail ou senha incorretos.";
+        // Você pode redirecionar para a página de login novamente, se quiser
+        // header('Location: ../view/login.php');
+    }
     die();
-    
 }
 
-//Cadastro de Cliente
-if(isset($_POST['inputNome']) &&
-   isset($_POST['inputCPF']) && 
-   isset($_POST['inputEmail']) &&
-   isset($_POST['inputSenha'])
-   
-   )
-{   
+// Cadastro de Cliente
+if (isset($_POST['inputNome']) && 
+    isset($_POST['inputCPF']) && 
+    isset($_POST['inputEmail']) &&
+    isset($_POST['inputSenha'])) {
+    
     $cod = "";
     $nome = $_POST['inputNome'];
     $cpf = $_POST['inputCPF'];
     $email = $_POST['inputEmail'];
     $senha = $_POST['inputSenha'];
     
-    $controlador->cadastrarCliente($cod,$nome,$cpf, $email, $senha);
+    $controlador->cadastrarCliente($cod, $nome, $cpf, $email, $senha);
 
     header('Location:../view/login.php');
     die();
 }
 
-
-
-//Cadastro de Produto
-if (
-    !empty($_POST['inputNomeProd']) && 
+// Cadastro de Produto
+if (!empty($_POST['inputNomeProd']) && 
     !empty($_POST['inputFabricanteProd']) && 
     !empty($_POST['inputDescricaoProd']) && 
     !empty($_POST['inputValorProd']) && 
@@ -51,8 +62,8 @@ if (
     !empty($_POST['inputSexoProd']) &&
     !empty($_POST['inputTipoProd']) &&
     !empty($_POST['inputTamanhoProd']) &&
-    !empty($_POST['inputMaterialProd'])
-) {
+    !empty($_POST['inputMaterialProd'])) {
+    
     // Obter os dados do formulário
     $dados = [
         'nome' => $_POST['inputNomeProd'],
@@ -77,14 +88,10 @@ if (
     if (move_uploaded_file($imagem_temp, $dados['imagem_destino'])) {
         $controlador->cadastrarProduto($dados);
         header('Location:../view/cadastroProduto.php');
-
-        //caso precise verificar os dados
-        //echo json_encode($dados);
         die();
     } else {
         echo "Erro ao fazer upload da imagem.";
     }
 }
-
 
 ?>
