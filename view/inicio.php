@@ -242,14 +242,14 @@ body {
       <div class="testimonial-card">
         <img src="../imagens/mulher.jpeg" alt="Cliente 1" class="testimonial-image">
         <blockquote class="testimonial-text">
-          "As bicicletas da Bikcraft são incríveis! A qualidade é excelente e o atendimento é de primeira."
+          "As bicicletas da Bikescriptzx são incríveis! A qualidade é excelente e o atendimento é de primeira."
         </blockquote>
         <cite class="testimonial-author">Maria Silva</cite>
       </div>
       <div class="testimonial-card">
         <img src="../imagens/homem1.jpeg" alt="Cliente 2" class="testimonial-image">
         <blockquote class="testimonial-text">
-          "Eu recomendo a Bikcraft para todos os meus amigos. Eles realmente sabem como fazer uma bicicleta perfeita!"
+          "Eu recomendo a Bikescriptzx para todos os meus amigos. Eles realmente sabem como fazer uma bicicleta perfeita!"
         </blockquote>
         <cite class="testimonial-author">João Pereira</cite>
       </div>
