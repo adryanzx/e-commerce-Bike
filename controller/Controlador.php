@@ -51,113 +51,224 @@ class Controlador{
     }
 
     public function visualizarProdutosCarrinho(){
-        $prod="";
+        $prod = "";
         $usuarioLogado = SessionManager::get("cod");
         $endereco = $this->bancoDeDados->retornarEndereco($usuarioLogado);
-        if ($endereco !== null) {
-            $codEndereco = $endereco['cod'];
-        } else {
-            $codEndereco = 0;
-        }
+        $codEndereco = $endereco !== null ? $endereco['cod'] : 0;
         $listaProdutosCarrinho = $this->bancoDeDados->retornarProdutosCarrinho($usuarioLogado);
-        while($produto = mysqli_fetch_assoc($listaProdutosCarrinho)){
+    
+        // Estilo CSS com animações e hover
+        $prod .= "<style>
+            .product-row {
+                display: flex;
+               box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+                justify-content: space-between;
+                align-items: center;
+                padding: 15px 0;
+                border-bottom: 1px solid #ddd;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+    
+            .product-row:hover {
+                transform: scale(1.02);
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            }
+    
+            .product-row img {
+                border-radius: 8px;
+                object-fit: cover;
+                transition: transform 0.3s ease;
+            }
+    
+            .product-row img:hover {
+                transform: rotate(3deg) scale(1.05);
+            }
+    
+            .product-info {
+                display: flex;
+                align-items: center;
+            }
+    
+            .product-details {
+                display: flex;
+                flex-direction: column;
+                margin-left: 15px;
+                color: #444;
+            }
+    
+            .product-details h6 {
+                font-size: 1.1rem;
+                color: #333;
+                margin: 0;
+            }
+    
+            .product-price, .product-quantity {
+                font-size: 1rem;
+                color: #666;
+                text-align: center;
+            }
+    
+            .quantity-buttons {
+                display: flex;
+                align-items: center;
+            }
+    
+            .quantity-buttons input {
+                text-align: center;
+                border: none;
+                background: transparent;
+                width: 40px;
+                font-size: 1rem;
+            }
+    
+            .quantity-buttons .btn {
+                padding: 5px 10px;
+                font-size: 1rem;
+                transition: background-color 0.3s ease;
+            }
+    
+            .quantity-buttons .btn:hover {
+                background-color: #ffc107;
+                color: white;
+            }
+    
+            .btn-danger {
+                background-color: #dc3545;
+                color: #fff;
+                padding: 5px 10px;
+                border: none;
+                cursor: pointer;
+                transition: background-color 0.3s ease, transform 0.2s ease;
+            }
+    
+            .btn-danger:hover {
+                background-color: #c82333;
+                transform: scale(1.1);
+            }
+    
+            .modal {
+                display: none;
+                position: fixed;
+                z-index: 1;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                animation: fadeIn 0.5s ease;
+            }
+    
+            .modal-content {
+                background-color: rgba(0, 0, 0, 0.5);
+                margin: 15% auto;
+                padding: 20px;
+                border-radius: 10px;
+                width: 60%;
+                animation: slideIn 0.5s ease;
+            }
+    
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+    
+            @keyframes slideIn {
+                from { transform: translateY(-100px); opacity: 0; }
+                to { transform: translateY(0); opacity: 1; }
+            }
+    
+            .modal-content label {
+                font-weight: bold;
+            }
+    
+            .modal .close {
+                color: #ffff;
+                float: right;
+                font-size: 28px;
+                font-weight: bold;
+                transition: color 0.3s ease;
+            }
+    
+            .modal .close:hover,
+            .modal .close:focus {
+                text-decoration: none;
+                cursor: pointer;
+            }
+    
+        </style>";
+    
+        // Construindo a visualização dos produtos no carrinho
+        while ($produto = mysqli_fetch_assoc($listaProdutosCarrinho)) {
             $prod .=
-            "<div class='d-flex flex-row justify-content-between align-items-center pt-lg-4 pt-2 pb-3 border-bottom mobile'>" .
-           " <div class='d-flex flex-row align-items-center'>" .
-                "<div><img src='". $produto["caminho_imagem"] ."' width='150' height='150' alt='' id='image'></div>" .
-                "<div class='d-flex flex-column pl-md-3 pl-1'>" .
-                    "<div>" .
-                        "<h6>".$produto["nome_produto"]."</h6>" .
+            "<div class='product-row'>" .
+                "<div class='product-info'>" .
+                    "<img src='" . $produto["caminho_imagem"] . "' width='100' height='100' alt='Product Image'>" .
+                    "<div class='product-details'>" .
+                        "<h6>" . $produto["nome_produto"] . "</h6>" .
                     "</div>" .
                 "</div>" .
-            "</div>" .
-            "<div class='pl-md-0 pl-1'><b>R$ ". $produto["valor_produto"] ."</b></div>" .
-          
-            
-                    "<input type='hidden' name='cod' value='". $produto["codigo_carrinho"] ."' readonly>".
-                    "<button type='submit' class='btn btn-secondary increase' data-target='quantity".$produto["codigo_carrinho"]."' data-add='add".$produto["codigo_carrinho"]."' type='button'> <i class='fa fa-plus' aria-hidden='true'></i> </button>" .
-              
-
-                "<input type='text' class='px-md-3 px-1' 
-                id='add".$produto["codigo_carrinho"]."'
-                 value='". $produto["quantidade"] ."'
-                style='border: none; background: transparent; outline: none;text-align: center'readonly
-                size='1'
-                ></input>" .
-
-           
-                    "<input type='hidden' name='cod' value='". $produto["codigo_carrinho"] ."' readonly>".
-                    "<button  type='submit' class='btn btn-secondary decrease' data-target='quantity".$produto["codigo_carrinho"]."' data-add='add".$produto["codigo_carrinho"]."'><i class='fa fa-minus' aria-hidden='true'></i></button>" .
-               
-
-
-            "<input class='pl-md-0 pl-1' 
-            id='quantity".$produto["codigo_carrinho"]."'
-            type='text' value='". $produto["valor_produto"] ."'
-            style='border: none; background: transparent; outline: none;text-align: center'readonly
-                size='1' ></input>" .
-
-            "<form action='../processamento/processamentoExcluirCarrinho.php' method='post'>".
-            "<input type='hidden' name='cod' value='". $produto["codigo_carrinho"] ."' readonly>".             
-            "<button type='submit' class='btn btn-danger'><i class='fa fa-trash-o' aria-hidden='true'></i>
-            </button>" .
-            "</form>".
-        "</div>" .
-   " </div>" .
-
-  
-   "<div id='myModal' class='modal' >" .
-   "<div class='modal-content'>" .
-   "<span class='close'>"."&times;"."</span>".
-    "<section class='conteudo-formulario-cadastro'>" .
-        "<form action='../processamento/processamentoAddEndereco.php' method='POST' enctype='multipart/form-data'>" .
-        
+                "<div class='product-price'><b>R$ " . $produto["valor_produto"] . "</b></div>" .
     
-
-
-
-        "<section class='form-endereco'>" .
-            "<label>Dados do endereço para entrega</label>" .
-           
-            "<input type='hidden' class='form-control' name='inputUsuarioLogado' value='".$usuarioLogado."'></input>" .
-            "<input type='hidden' id='codEndereco' class='form-control' name='inputEndereco' value='". $codEndereco."'></input>" .
-
-
-            "<div class='mb-3'>" .
-                "<label for='CEP' class='form-label'>CEP</label>" .
-                "<input type='number' class='form-control' name='inputCep' placeholder='Cep'required></input>" .
-            "</div>" .
-
-            "<div class='mb-3'>" .
-                "<label for='Rua' class='form-label'>Rua</label>" .
-                "<input type='text' class='form-control' name='inputRua' placeholder='Rua' required>" .
-            "</div>" .
-
-            "<div class='mb-3'>" .
-                "<label for='Numero' class='form-label'>Número</label>" .
-                "<input type='number' class='form-control' name='inputNumero' placeholder='Número' required>" .
-            "</div>" .
-
-            "<div class='mb-3'>" .
-                "<label for='Bairro' class='form-label'>Bairro</label>" .
-                "<input type='text' class='form-control' name='inputBairro' placeholder='Bairro' required>" .
-            "</div>" .
-
-            "<div class='mb-3'>" .
-                "<label for='Complemento' class='form-label'>Complemento</label>" .
-                "<input type='text' class='form-control' name='inputComplemento' placeholder='Complemento (opcional)'>" .
-            "</div>" .  
-                  
-            "<button type='submit' class='btn btn-primary'>Confirmar</button>" .
-        "</section>" .
-        "</form>" .
-   "</section>" .
-    "</div>" .
-    "</div>";
-
+                "<div class='quantity-buttons'>" .
+                    "<button class='btn btn-secondary increase' data-target='quantity" . $produto["codigo_carrinho"] . "' data-add='add" . $produto["codigo_carrinho"] . "'><i class='fa fa-plus' aria-hidden='true'></i></button>" .
+                    "<input type='text' id='add" . $produto["codigo_carrinho"] . "' value='" . $produto["quantidade"] . "' readonly>" .
+                    "<button class='btn btn-secondary decrease' data-target='quantity" . $produto["codigo_carrinho"] . "' data-add='add" . $produto["codigo_carrinho"] . "'><i class='fa fa-minus' aria-hidden='true'></i></button>" .
+                "</div>" .
+    
+                "<form action='../processamento/processamentoExcluirCarrinho.php' method='post'>" .
+                    "<input type='hidden' name='cod' value='" . $produto["codigo_carrinho"] . "' readonly>" .
+                    "<button type='submit' class='btn btn-danger'><i class='fa fa-trash-o' aria-hidden='true'></i></button>" .
+                "</form>" .
+            "</div>";
         }
+    
+        // Modal para adicionar o endereço de entrega
+        $prod .=
+        "<div id='myModal' class='modal'>" .
+            "<div class='modal-content'>" .
+                "<span class='close'>&times;</span>" .
+                "<section class='conteudo-formulario-cadastro'>" .
+                    "<form action='../processamento/processamentoAddEndereco.php' method='POST' enctype='multipart/form-data'>" .
+                        "<section class='form-endereco'>" .
+                            "<label>Dados do endereço para entrega</label>" .
+                            "<input type='hidden' class='form-control' name='inputUsuarioLogado' value='" . $usuarioLogado . "'>" .
+                            "<input type='hidden' id='codEndereco' class='form-control' name='inputEndereco' value='" . $codEndereco . "'>" .
+    
+                            "<div class='mb-3'>" .
+                                "<label for='CEP' class='form-label'>CEP</label>" .
+                                "<input type='number' class='form-control' name='inputCep' placeholder='CEP' required>" .
+                            "</div>" .
+    
+                            "<div class='mb-3'>" .
+                                "<label for='Rua' class='form-label'>Rua</label>" .
+                                "<input type='text' class='form-control' name='inputRua' placeholder='Rua' required>" .
+                            "</div>" .
+    
+                            "<div class='mb-3'>" .
+                                "<label for='Numero' class='form-label'>Número</label>" .
+                                "<input type='number' class='form-control' name='inputNumero' placeholder='Número' required>" .
+                            "</div>" .
+    
+                            "<div class='mb-3'>" .
+                                "<label for='Bairro' class='form-label'>Bairro</label>" .
+                                "<input type='text' class='form-control' name='inputBairro' placeholder='Bairro' required>" .
+                            "</div>" .
+    
+                            "<div class='mb-3'>" .
+                                "<label for='Complemento' class='form-label'>Complemento</label>" .
+                                "<input type='text' class='form-control' name='inputComplemento' placeholder='Complemento (opcional)'>" .
+                            "</div>" .
+    
+                            "<button type='submit' class='btn btn-primary'>Confirmar</button>" .
+                        "</section>" .
+                    "</form>" .
+                "</section>" .
+            "</div>" .
+        "</div>";
+    
         return $prod;
     }
+    
     public function excluirCarrinho($cod){
         $this->bancoDeDados->excluirCarrinho($cod);
     }
@@ -267,30 +378,115 @@ class Controlador{
         return $prod;
     }
     public function visualizarProdutosGrid(){
-        $prod="";
+        $prod = "";
         $codCliente = SessionManager::get("cod");
         $listaProdutos = $this->bancoDeDados->retornarProdutos();
+        
+        // Adicionando o estilo CSS embutido no código PHP
+        $prod .= "<style>
+            .product-card {
+                background-color: #fff;
+                border-radius: 10px;
+                padding: 20px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+            
+            .product-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            }
+    
+            .product-image {
+                width: 100%;
+                height: auto;
+                border-radius: 8px;
+                object-fit: cover;
+                margin-bottom: 15px;
+            }
+    
+            .product-name {
+                font-size: 1.2rem;
+                font-weight: bold;
+                color: #333;
+                margin-bottom: 10px;
+            }
+    
+            .product-description {
+                font-size: 1rem;
+                color: #666;
+                margin-bottom: 15px;
+            }
+    
+            .product-price {
+                font-size: 1.2rem;
+                font-weight: bold;
+                color: #ff8c00;
+                margin-bottom: 20px;
+            }
+    
+            .btn-add-to-cart {
+                background-color: #ffc107;
+                color: #fff;
+                font-size: 1rem;
+                font-weight: bold;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+    
+            .btn-add-to-cart:hover {
+                background-color: #e0a800;
+            }
+    
+            @media (max-width: 768px) {
+                .product-card {
+                    margin-bottom: 30px;
+                }
+    
+                .product-name {
+                    font-size: 1rem;
+                }
+    
+                .product-price {
+                    font-size: 1rem;
+                }
+    
+                .btn-add-to-cart {
+                    font-size: 0.9rem;
+                    padding: 8px 15px;
+                }
+            }
+        </style>";
+    
+        // Construindo os cards dos produtos
         while($produto = mysqli_fetch_assoc($listaProdutos)){
             $prod .=
-            "<div class='col-lg-4 col-md-6 ' id='". $produto["tipo"] . "'>".
-            "<div class='product-card' >".
-                "<img src='". $produto["imagem_path"] ."' alt='Product Image' class='product-image'>".
-                "<div class='product-name'>".$produto["nome"]."</div>".
-                "<div class='product-description'>". $produto["descricao"] ."</div>".
-                "<div class='product-price'>R$". $produto["valor"] ."</div>".
-
-                "<form action='../processamento/processamentoVendas.php' method='post'>".           
-                    "<input type='hidden' name='produto_cod' value='". $produto["cod"] ."'>". // Adiciona um campo oculto com o nome do produto
-                    "<input  type='hidden' name='cliente_cod' value='". $codCliente ."'>". // 
-                    "<input type='hidden' name='valor_total' value='". $produto["valor"] ."'>". // Adiciona um campo oculto com o valor total
-                    "<input type='hidden' name='quantidade' value='" . "1" . "'>".
-                    "<button type='submit' class='btn btn-warning btn-add-to-cart'>Adicionar ao Carrinho <i class='fa fa-shopping-cart'></i></button>". // Botão submit
-                "</form>". 
-            "</div>".
-        "</div>";
+            "<div class='col-lg-4 col-md-6' id='". $produto["tipo"] . "'>".
+                "<div class='product-card'>".
+                    "<img src='". $produto["imagem_path"] ."' alt='Product Image' class='product-image'>".
+                    "<div class='product-name'>".$produto["nome"]."</div>".
+                    "<div class='product-description'>". $produto["descricao"] ."</div>".
+                    "<div class='product-price'>R$". $produto["valor"] ."</div>".
+                    
+                    "<form action='../processamento/processamentoVendas.php' method='post'>".
+                        "<input type='hidden' name='produto_cod' value='". $produto["cod"] ."'>".
+                        "<input type='hidden' name='cliente_cod' value='". $codCliente ."'>".
+                        "<input type='hidden' name='valor_total' value='". $produto["valor"] ."'>".
+                        "<input type='hidden' name='quantidade' value='1'>".
+                        "<button type='submit' class='btn btn-warning btn-add-to-cart'>Adicionar ao Carrinho <i class='fa fa-shopping-cart'></i></button>".
+                    "</form>".
+                "</div>".
+            "</div>";
         }
+    
         return $prod;
     }
+    
 
 
     public function visualizarClientes(){
