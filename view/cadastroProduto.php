@@ -2,9 +2,154 @@
 require_once "../controller/Controlador.php";
 include "layout/cabecalho.php";
 ?>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Cadastrar Produtos</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2 sidebar">
+                <ul class="nav flex-column">
+                <li class="nav-item">
+                        <a class="nav-link btn btn-dark mb-2" href="home.php">Ver Relatorio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-dark mb-2" href="gerenciaCliente.php">Cadastrar usuários</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-dark mb-2" href="cadastroProduto.php">Cadastrar Produtos</a>
+                    </li>
+                    
+                    
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-danger mb-2" href="login.php">Log Out</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-success mb-2" href="inicio.php">Ir para o site</a>
+                    </li>
+                </ul>
+            </div>
+
+<style>
+
+    /* Estilos personalizados para a tabela */
+    .sidebar {
+            background-color: #343a40;
+            padding: 15px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 200px;
+        }
+
+        .main-content {
+            margin-left: 220px;
+            padding: 20px;
+        }
+
+     
+.container-table {
+    display: flex;
+    justify-content: flex-end; 
+    align-items: center;
+    margin: 0 auto;
+    width: 100%; 
+    padding-right: 80px; 
+}
+
+/* Estilos para a tabela */
+.table {
+    width: 80%; /* Aumenta a largura da tabela para ocupar 80% da tela */
+    max-width: 1000px; /* Limita a largura máxima da tabela */
+    border-collapse: collapse;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+    margin-top: 20px;
+}
+
+.table th, .table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.table thead th {
+    background-color: #4CAF50;
+    color: white;
+    text-transform: uppercase;
+}
+
+.table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.table tbody td {
+    font-size: 16px;
+    color: #333;
+}
+
+.zebrado {
+    background-color: #eaf0f1;
+}
+
+.table tbody td a {
+    text-decoration: none;
+    color: #007BFF;
+    font-weight: bold;
+}
+
+.table tbody td a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+/* Responsividade */
+@media screen and (max-width: 768px) {
+    .table thead {
+        display: none;
+    }
+
+    .table, .table tbody, .table tr, .table td {
+        display: block;
+        width: 100%;
+    }
+
+    .table tbody tr {
+        margin-bottom: 15px;
+    }
+
+    .table tbody td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+   
+    .table tbody td:before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        padding-left: 15px;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+}
 
 
+
+
+    </style>
 <main>
+
     <!-- Modal -->
     <div id="myModal" class="modal">
         <!-- Conteúdo do modal -->
@@ -106,13 +251,18 @@ include "layout/cabecalho.php";
 
     <section class="conteudo-visualizar">
         <section class="conteudo-visualizar-box">
-            <h1>Produtos</h1>
+            <h1>Gerenciamento de Produtos</h1>
         </section>
-        <h3>Gerenciamento de Produtos</h3>
+        <!-- <h3>Gerenciamento de Produtos</h3> -->
+        <div class="button-container">
         <a class="btn btn-primary mb-3 openModal">Cadastrar novo produto</a>
+    </div>
 
+        <div class="container-table">
         <table class="table table-borderless zebrado">
+       
             <thead>
+       
                 <tr>
                     <th>Cod</th>
                     <th>Nome do produto</th>
@@ -125,12 +275,14 @@ include "layout/cabecalho.php";
                     <th></th>
                 </tr>
             </thead>
+</div>
             <?php
                         $controlador = new Controlador();
                         echo $controlador->visualizarProdutos();
                     ?>
         </table>
     </section>
+
 
 </main>
 <script>
@@ -197,6 +349,3 @@ document.addEventListener('DOMContentLoaded', (event) => {
 });
 </script>
 
-<?php
-  include "layout/rodape.php";
-?>  

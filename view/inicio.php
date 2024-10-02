@@ -176,6 +176,7 @@ body {
                     </a>
                 </li>
                 <li><a href="clienteGerenciaUsuario.php"><i class="fa fa-user"></i></a></li>
+                <li><a href="../processamento/sair.php">Sair</a></li>
               
         </ul>
       </nav>
