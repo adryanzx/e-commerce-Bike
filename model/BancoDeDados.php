@@ -15,7 +15,6 @@ class BancoDeDados{
         $this->dataBase = $DataBase;
     }
 
-    // Método estático para obter a instância única da classe
     public static function getInstance(){
         if (!self::$instance) {
             self::$instance = new BancoDeDados("localhost", "root", "", "bicicleta");
@@ -50,23 +49,19 @@ class BancoDeDados{
 public function inserirCarrinho($carrinho) {
     $conexao = $this->conectarBD();
 
-    // Verificar se já existe um registro com o mesmo código de cliente e produto
     $consultaExistente = "SELECT COUNT(*) AS total FROM carrinho WHERE cliente_cod = '{$carrinho->get_clienteCod()}' AND produto_cod = '{$carrinho->get_produtoCod()}'";
     $resultadoConsulta = mysqli_query($conexao, $consultaExistente);
     $linha = mysqli_fetch_assoc($resultadoConsulta);
 
-    // Se já existir, retornar false
+    
     if ($linha['total'] > 0) {
         return false;
     }
-
-    // Caso contrário, realizar a inserção
     $codCarrinho = "INSERT INTO carrinho (cliente_cod, produto_cod, quantidade) 
                     VALUES ('{$carrinho->get_clienteCod()}', '{$carrinho->get_produtoCod()}', '{$carrinho->get_quantidade()}')";
     
     $result = mysqli_query($conexao, $codCarrinho);
 
-    // Verificar se a inserção foi bem-sucedida
     if ($result) {
         return true;
     } else {

@@ -218,7 +218,6 @@ class Controlador{
                         "<input type='hidden' name='cod' value='". $produto["cod"] ."'>".
                         "<input type='hidden' name='tipo' value='". $produto["tipo"] ."'>".
                         
-                        "<button class='btn btn-warning  type='submit' openModalAlterar' name='alterar_produto'>Alterar</button>".
                     "</form>".
 
                     "</td>".
@@ -281,13 +280,12 @@ class Controlador{
                 "<div class='product-price'>R$". $produto["valor"] ."</div>".
 
                 "<form action='../processamento/processamentoVendas.php' method='post'>".           
-                //Adiciona um formulário ao redor do botão
                     "<input type='hidden' name='produto_cod' value='". $produto["cod"] ."'>". // Adiciona um campo oculto com o nome do produto
                     "<input  type='hidden' name='cliente_cod' value='". $codCliente ."'>". // 
                     "<input type='hidden' name='valor_total' value='". $produto["valor"] ."'>". // Adiciona um campo oculto com o valor total
                     "<input type='hidden' name='quantidade' value='" . "1" . "'>".
                     "<button type='submit' class='btn btn-warning btn-add-to-cart'>Adicionar ao Carrinho <i class='fa fa-shopping-cart'></i></button>". // Botão submit
-                "</form>". // Fecha o formulário
+                "</form>". 
             "</div>".
         "</div>";
         }
@@ -315,14 +313,6 @@ class Controlador{
                             "<button class='btn btn-danger' type='submit' name='excluir_produto'><i class='fa fa-trash'></i></button>". // Botão para excluir
                         "</form>".
                     "</td>".
-
-                    // Adcionar depois de fazer a função para finalizar venda
-//                    "<td>".
-//                    "<form method='post' action='../processamento/processamentoAlterarProduto.php'>".
-//                        "<input type='hidden' name='cod' value='". $cliente["cod"] ."'>".                        
-//                        "<button class='btn btn-warning  type='submit' openModalAlterar' name='alterar_produto'>Alterar</button>".
-//                    "</form>".
-//                    "</td>".
                 "</tr>".
                 "</tbody>";
         }
@@ -427,12 +417,12 @@ class Controlador{
             "<div class='d-flex justify-content-center align-items-center'>".
                     "<form method='post' action='../processamento/processamentoBaixarJson.php'>".
                         "<input type='hidden' name='acao' value='baixarCsv'>".
-                        "<button type='submit' id='downloadCsv' class='btn btn-primary mx-2'>Baixar CSV</button>".
+                        "<button type='submit' id='downloadCsv' class='btn btn-primary mx-2'>Ver CSV</button>".
                     "</form>".
     
                     "<form method='post' action='../processamento/processamentoBaixarJson.php'>".
                         "<input type='hidden' name='acao' value='baixarJson'>".
-                        "<button type='submit' id='downloadJson' class='btn btn-secondary mx-2'>Baixar JSON</button>".
+                        "<button type='submit' id='downloadJson' class='btn btn-secondary mx-2'>Ver JSON</button>".
                     "</form>".
             "</div>";
     
@@ -452,16 +442,9 @@ class Controlador{
     }
 
     public function gerarCsvRelatorioVendas() {
-        // Obtém o JSON gerado
         $jsonData = $this->bancoDeDados->gerarJsonRelatorioVendas();
-        
-        // Instancia o adaptador com os dados JSON
-        $adapter = new JsonToCsvAdapter($jsonData);
-        
-        // Define o caminho do arquivo CSV
-        
+        $adapter = new JsonToCsvAdapter($jsonData);    
         try {
-            // Converte JSON para CSV e salva o arquivo
             $adapter->saveCsvToFile();
             return 'Arquivo CSV gerado/atualizado com sucesso.';
         } catch (Exception $e) {
